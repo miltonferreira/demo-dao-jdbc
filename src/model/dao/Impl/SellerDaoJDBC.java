@@ -59,18 +59,10 @@ public class SellerDaoJDBC implements SellerDao{
 			if(rs.next()) {
 				
 				// cria um obj departamento puxando do banco de dados -------------------------
-				Department dep = new Department();
-				dep.setId(rs.getInt("DepartmentId")); // pega o id do departamento
-				dep.setName(rs.getString("DepName")); // pega o nome do departamento
+				Department dep = instantiateDepartment(rs);
 				
 				// cria um obj vendedor puxando do banco de dados -----------------------------
-				Seller obj = new Seller();
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
-				obj.setEmail(rs.getString("Email"));
-				obj.setBaseSalary(rs.getDouble("BaseSalary"));
-				obj.setBirthDate(rs.getDate("BirthDate"));
-				obj.setDepartment(dep); // associação do obj vendedor com o obj departamento
+				Seller obj = instantiateSeller(rs, dep);
 				
 				return obj; // se pegou as infos retorna o vendedor
 			}
@@ -87,6 +79,30 @@ public class SellerDaoJDBC implements SellerDao{
 			DB.closeResultSet(rs);
 			
 		}
+		
+	}
+	
+	// cria um obj vendedor puxando do banco de dados -----------------------------
+	private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+		
+		Seller obj = new Seller();
+		obj.setId(rs.getInt("Id"));
+		obj.setName(rs.getString("Name"));
+		obj.setEmail(rs.getString("Email"));
+		obj.setBaseSalary(rs.getDouble("BaseSalary"));
+		obj.setBirthDate(rs.getDate("BirthDate"));
+		obj.setDepartment(dep); // associação do obj vendedor com o obj departamento
+		return obj;
+		
+	}
+	
+	// cria um obj departamento puxando do banco de dados -------------------------
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		
+		Department dep =  new Department();
+		dep.setId(rs.getInt("DepartmentId")); // pega o id do departamento
+		dep.setName(rs.getString("DepName")); // pega o nome do departamento
+		return dep;
 		
 	}
 
