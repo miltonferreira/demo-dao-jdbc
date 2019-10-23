@@ -13,6 +13,7 @@ public class DB {
 
 	private static Connection conn = null;
 	
+	// faz autenticação para conecta ao banco de dados
 	public static Connection getConnection() {
 		if (conn == null) {
 			try {
