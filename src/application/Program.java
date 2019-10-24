@@ -2,6 +2,7 @@ package application;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
@@ -11,6 +12,8 @@ import model.entities.Seller;
 public class Program {
 
 	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
 		
 		SellerDao sellerDao = DaoFactory.createSellerDao(); // faz conexão com banco de dados
 		
@@ -41,12 +44,20 @@ public class Program {
 		System.out.println("Inserted! New Id = " + newSeller.getId());
 		*/
 		
-		// >>>>>>>>>>>>>>>>>>>> insere um novo vendedor ao sistema <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		System.out.println("\n=== Test 5: seller insert ===");
+		/*/ >>>>>>>>>>>>>>>>>>>> muda informações de um vendedor ao sistema <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		System.out.println("\n=== Test 5: seller update ===");
 		seller = sellerDao.findById(1); // carrega os dados do ID selecionado
 		seller.setName("Martha Wayne"); // muda o nome do vendedor
 		sellerDao.update(seller); // passa o obj para atualizar no banco de dados
 		System.out.println("Update Completed");
+		*/
+		
+		System.out.println("\n=== Test 6: seller delete ===");
+		System.out.println("Enter ID for delete test: ");
+		int id = sc.nextInt();
+		sellerDao.deleteById(id);
+		System.out.println("Delete Completed");
+		sc.close();
 		
 		/*
 		Department obj = new Department(1, "Books");
